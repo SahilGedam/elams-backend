@@ -10,6 +10,11 @@ import com.elams.elams_backend.dto.auth.AuthResponse;
 import com.elams.elams_backend.dto.auth.RegisterRequest;
 import com.elams.elams_backend.service.auth.AuthService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+
+@Tag(name = "Authentication", description = "Auth APIs")
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
@@ -17,6 +22,8 @@ public class AuthController {
 
     private final AuthService authService;
 
+   
+    @Operation(summary = "Login user")
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(
             @Valid @RequestBody AuthRequest request) {
@@ -24,6 +31,7 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(request));
     }
 
+    @Operation(summary = "Register new user")
     @PostMapping("/register")
     public ResponseEntity<?> register(
             @Valid @RequestBody RegisterRequest request) {
